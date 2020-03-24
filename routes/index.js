@@ -3,7 +3,7 @@ var router = express.Router();
 //var db = require('../config/db');
 
 router.get('/', function (req, res) {
-  res.send('Hi heroku!');
+  res.send('Hi heroku!!');
 });
 
 /*router.get('/user', function (req, res) {
