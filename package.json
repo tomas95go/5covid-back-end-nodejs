@@ -1,0 +1,26 @@
+{
+  "name": "hackaton-covid-19",
+  "version": "1.0.0",
+  "description": "Hackaton",
+  "main": "app.js",
+  "dependencies": {
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "express": "^4.17.1",
+    "knex": "^0.20.13",
+    "mysql": "^2.18.1",
+    "prettier": "^2.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Hackaton",
+    "COVID-19"
+  ],
+  "author": "5covid team",
+  "license": "ISC"
+}
