@@ -1,4 +1,4 @@
-let knex = require('knex')({
+/*let knex = require('knex')({
   client: 'mysql',
   connection: {
     host: '127.0.0.1',
@@ -9,3 +9,4 @@ let knex = require('knex')({
 });
 
 module.exports = knex;
+*/

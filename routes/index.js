@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var db = require('../config/db');
+//var db = require('../config/db');
 
 router.get('/', function (req, res) {
   res.send('Hi heroku!');
 });
 
-router.get('/user', function (req, res) {
+/*router.get('/user', function (req, res) {
   res.send('/user');
 });
 
@@ -24,6 +24,6 @@ router.get('/user/:id', function (req, res, id) {
       });
     });
   //res.end();
-});
+});*/
 
 module.exports = router;
