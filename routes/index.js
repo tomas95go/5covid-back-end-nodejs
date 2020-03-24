@@ -3,14 +3,7 @@ var router = express.Router();
 var db = require('../config/db');
 
 router.get('/', function (req, res) {
-  db.select()
-    .from('duenios')
-    .then((data) => {
-      res.json({
-        error: false,
-        data: data,
-      });
-    });
+  res.send('Hi heroku!');
 });
 
 router.get('/user', function (req, res) {
