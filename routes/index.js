@@ -1,4 +1,4 @@
-var express = require('express');
+/*var express = require('express');
 var router = express.Router();
 var db = require('../config/db');
 var bcrypt = require('bcrypt');
@@ -110,7 +110,7 @@ router.get('/listado_negocios', function (req, res) {
 });
 
 router.get('/listado_negocios/:rubro', function (req, res, rubro) {
-  db.select('descripcion')
+  db.select('descripcion', 'nombre')
     .where('rubro.descripcion', req.params.rubro)
     .from('negocios_rubros')
     .innerJoin('negocios', 'negocios.idNegocio', 'negocios_rubros.idNegocio')
@@ -136,6 +136,6 @@ router.get('/user/:id', function (req, res, id) {
       });
     });
   //res.end();
-});*/
+});
 
-module.exports = router;
+module.exports = router;/*
