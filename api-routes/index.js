@@ -1,14 +1,15 @@
 const router = require('express').Router();
-//userOps = User Operations
-const userOps = require('./users/users');
+//usuarioOps = usuario operaciones
+const usuarioOps = require('./usuarios/usuarios');
 
 router.get('/', (req, res) => {
-  res.send(`Welcome to "Mi Turno Seguro"`);
+  res.send(`Bienvenido a "Mi Turno Seguro"`);
 });
-/** Receive the user operations, from now on everything is going to be /user
- *  + whatever the route is in the userOps, if userOps has /register, route is
- *  /user/register
+/**
+ * Recibe las operaraciones del usuario, de ahora en adelante todo sera
+ * /usuario + la ruta recibida de usuarioOps, por ejemplo, si usuarioOps tiene
+ * /registrar, la ruta seria /usuario/registrar
  **/
-router.use('/user', userOps);
+router.use('/usuario', usuarioOps);
 
 module.exports = router;
