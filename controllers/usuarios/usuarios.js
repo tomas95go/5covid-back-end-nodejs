@@ -15,10 +15,23 @@ const registrarUsuarioPropietario = (req, res, propiteario) => {
     });
 };
 
-const registrarUsuarioCliente = (req, res) => {
-  res.send('Controlador registrar usuarios');
+const registrarUsuarioCliente = (req, res, cliente) => {
+  const { usuario, clave, rol } = cliente;
+  if (!usuario || !clave || !rol) {
+    res.status(500).send('¡Por favor, no dejar campos sin rellenar!');
+  }
+  insertarUsuario(cliente)
+    .then((respuesta) => {
+      res.status(200).send('¡Usuario creado exitosamente!');
+    })
+    .catch((error) => {
+      const { code, errno, sqlMessage, sqlState } = error;
+      mensajeError = `Hay un error, por favor, contactar al desarrollador. Codigo: ${code}, Numero: ${errno}, MensajeSQL: ${sqlMessage}, EstadoSQL: ${sqlState}`;
+      res.status(500).send(mensajeError);
+    });
 };
 
 module.exports = {
   registrarUsuarioPropietario: registrarUsuarioPropietario,
+  registrarUsuarioCliente: registrarUsuarioCliente,
 };

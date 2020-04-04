@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {
   registrarUsuarioPropietario,
+  registrarUsuarioCliente,
 } = require('../../controllers/usuarios/usuarios');
 
 router.post('/registrar/propietario', (req, res) => {
@@ -19,8 +20,13 @@ router.post('/registrar/propietario', (req, res) => {
 
 router.post('/registrar/cliente', (req, res) => {
   const { usuario, clave, rol } = req.body;
-  console.log(usuario, usuario, rol);
-  registrarUsuarioPropietario(req, res);
+  function cliente(usuario, clave, rol) {
+    this.usuario = usuario;
+    this.clave = clave;
+    this.rol = rol;
+  }
+  const nuevoCliente = new cliente(usuario, clave, rol);
+  registrarUsuarioCliente(req, res, nuevoCliente);
 });
 
 router.get('/acceder/propietario', (req, res) => {

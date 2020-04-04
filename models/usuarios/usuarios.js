@@ -6,8 +6,8 @@ const encriptarClave = (clave, saltRounds) => {
   return claveEncriptada;
 };
 
-const insertarUsuario = (propietario) => {
-  const { usuario, clave } = propietario;
+const insertarUsuario = (nuevoUsuario) => {
+  const { usuario, clave } = nuevoUsuario;
   const saltRounds = 10;
   const claveEncriptada = encriptarClave(clave, saltRounds);
   return db('usuarios').insert({
