@@ -1,15 +1,37 @@
 const { check, validationResult } = require('express-validator');
 
-const validarCamposUsuarioCliente = [
-  check('clave')
-    .isLength({ min: 5 })
-    .withMessage('La clave debe contener al menos 5 caracteres'),
-];
+async function validarCamposUsuarioCliente(req) {
+  await check('email')
+    .exists({ checkFalsy: true })
+    .withMessage('El email no debe estar vacio')
+    .run(req);
+  await check('email')
+    .isEmail()
+    .withMessage('Debe ser un email valido')
+    .run(req);
+  await check('usuario')
+    .exists({ checkFalsy: true })
+    .withMessage('El usuario no debe estar vacio')
+    .run(req);
+  await check('dni')
+    .exists({ checkFalsy: true })
+    .withMessage('El dni no debe estar vacio')
+    .run(req);
+  await check('dni').isInt().withMessage('El dni debe ser un numero').run(req);
+  await check('dni')
+    .isLength({ min: 6, max: 10 })
+    .withMessage('El dni debe contener entre 6 y 10 caracteres')
+    .run(req);
+  await check('direccion')
+    .exists({ checkFalsy: true })
+    .withMessage('La direccion no debe estar vacia')
+    .run(req);
+}
 
 const validarUsuarioCliente = (req) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    const enviarMensajesValidaciones = errors.array();
+  const errores = validationResult(req);
+  if (!errores.isEmpty()) {
+    const enviarMensajesValidaciones = errores.array();
     const mensajes = enviarMensajesValidaciones.map((value) => {
       return value.msg;
     });

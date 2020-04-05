@@ -29,9 +29,15 @@ router.post('/registrar/propietario', (req, res) => {
   registrarUsuarioPropietario(req, res, nuevoPropietario);
 });
 
-router.post('/registrar/cliente', validarCamposUsuarioCliente, (req, res) => {
+/* 
+Para validar se puede hacer con async await o pasando un array de validaciones.
+Con el array quedaria: 
+router.post('/registrar/cliente',validarCamposUsuarioCliente, (req, res) => {}
+ambos son middlewares
+*/
+router.post('/registrar/cliente', async (req, res) => {
+  await validarCamposUsuarioCliente(req);
   const mensajesValidaciones = validarUsuarioCliente(req, res);
-
   const {
     usuario,
     clave,
