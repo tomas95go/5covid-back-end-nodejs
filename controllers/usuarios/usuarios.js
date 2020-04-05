@@ -1,9 +1,6 @@
 const { insertarUsuario } = require('../../models/usuarios/usuarios');
+
 const registrarUsuarioPropietario = (req, res, propiteario) => {
-  const { usuario, clave, rol } = propiteario;
-  if (!usuario || !clave || !rol) {
-    res.status(500).send('¡Por favor, no dejar campos sin rellenar!');
-  }
   insertarUsuario(propiteario)
     .then((respuesta) => {
       res.status(200).send('¡Usuario creado exitosamente!');
@@ -15,12 +12,8 @@ const registrarUsuarioPropietario = (req, res, propiteario) => {
     });
 };
 
-const registrarUsuarioCliente = (req, res, cliente) => {
-  const { usuario, clave, rol } = cliente;
-  if (!usuario || !clave || !rol) {
-    res.status(500).send('¡Por favor, no dejar campos sin rellenar!');
-  }
-  insertarUsuario(cliente)
+const registrarUsuarioCliente = (req, res, usuario) => {
+  insertarUsuario(usuario)
     .then((respuesta) => {
       res.status(200).send('¡Usuario creado exitosamente!');
     })

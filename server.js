@@ -3,6 +3,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 const bodyParser = require('body-parser');
 const routes = require('./api-routes/index');
+const cors = require('cors');
+
+app.use(cors());
 
 app.use(bodyParser.json());
 /** Start: Entry Point of the app routes **/
