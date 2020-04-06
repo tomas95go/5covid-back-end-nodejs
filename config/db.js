@@ -7,7 +7,7 @@ let knex = require('knex')({
     user: 'root',
     password: 'root',
     database: '5covid',
-  }*/,
+  },*/
   //Conexión remota. ClearDB de Heroku.
   connection: {
     host: 'us-cdbr-iron-east-01.cleardb.net',
