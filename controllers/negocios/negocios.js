@@ -79,19 +79,50 @@ const listadoSuperMercados = (req, res, latitud, longitud) => {
 };
 
 const listadoNegocios = (req, res, latitud, longitud) => {
-  const farmacias = listadoFarmacias(req, res, latitud, longitud);
-
-  const supermercados = listadoSuperMercados(req, res, latitud, longitud);
-
-  async function combinador(farmacias, supermercados) {
-    let listadoCompleto = [];
-    farmacias = await farmacias;
-    supers = await supermercados;
-    listadoCompleto = farmacias.concat(supers);
-    res.status(200).send(listadoCompleto);
-    return listadoCompleto;
-  }
-  combinador(farmacias, supermercados);
+  const direccionUsuario = latitud + ',' + longitud;
+  const promiseFarmacias = obtenerNegociosSegunTipo(
+    'pharmacy',
+    direccionUsuario
+  );
+  const promiseSuperMercados = obtenerNegociosSegunTipo(
+    'supermarket',
+    direccionUsuario
+  );
+  promiseFarmacias.then((respuesta) => {
+    const { results } = respuesta.data;
+    const farmacias = results;
+    const listadoFarmacias = farmacias.map((value, i) => {
+      let { id, name, vicinity, rating } = value;
+      rating === undefined ? (rating = 'No disponible') : rating;
+      let farmaciasObj = {
+        idFarmacia: id,
+        nombre: name,
+        direccion: vicinity,
+        rating: rating,
+      };
+      return farmaciasObj;
+    });
+    promiseSuperMercados.then((respuesta) => {
+      const { results } = respuesta.data;
+      const supermercados = results;
+      const listadoSuperMercados = supermercados.map((value, i) => {
+        let { id, name, vicinity, rating } = value;
+        rating === undefined ? (rating = 'No disponible') : rating;
+        let supermercadosObj = {
+          idSupermercado: id,
+          nombre: name,
+          direccion: vicinity,
+          rating: rating,
+        };
+        return supermercadosObj;
+      });
+      const listadoNegociosCompleto = listadoFarmacias.concat(
+        listadoSuperMercados
+      );
+      res.status(200).send(listadoNegociosCompleto);
+      return listadoNegociosCompleto;
+    });
+  });
 };
 
 module.exports = {
