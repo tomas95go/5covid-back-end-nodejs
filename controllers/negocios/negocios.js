@@ -120,26 +120,25 @@ const combinarListados = (direccionUsuario) => {
     .catch((error) => {
       console.log(error);
     });
+
   const listadoCompleto = Promise.all([listaSuperMercados, listaFarmacias]);
-  return listadoCompleto;
+
+  const promesaListado = listadoCompleto.then((listaNegocios) => {
+    let listaTotalDeNegocios = [];
+    listaNegocios.forEach((value) => {
+      listaTotalDeNegocios.push(...value);
+    });
+    return listaTotalDeNegocios;
+  });
+
+  return promesaListado;
 };
 
 const listadoNegocios = (req, res, latitud, longitud) => {
   const direccionUsuario = latitud + ',' + longitud;
   const listaNegocios = combinarListados(direccionUsuario);
-  let listaTotalDeNegocios = [];
   listaNegocios
-    .then((listadoCompleto) => {
-      let longitudListado = listadoCompleto.length;
-      let i = 0;
-      let comparador = longitudListado - 1;
-      //Mientras que i sea menos al comparador, seguir concatenando los arrays.
-      do {
-        listaTotalDeNegocios = listadoCompleto[i].concat(
-          listadoCompleto[i + 1]
-        );
-        i++;
-      } while (i < comparador);
+    .then((listaTotalDeNegocios) => {
       res.status(200).send(listaTotalDeNegocios);
     })
     .catch((error) => {
