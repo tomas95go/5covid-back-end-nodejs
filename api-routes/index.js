@@ -2,6 +2,7 @@ const router = require('express').Router();
 //usuarioOps = usuario operaciones
 const usuarioOps = require('./usuarios/usuarios');
 const negociosOps = require('./negocios/negocios');
+const propitearioOps = require('./propietarios/propietarios');
 
 router.get('/', (req, res) => {
   res.send(`Bienvenido a "Mi Turno Seguro"`);
@@ -14,5 +15,7 @@ router.get('/', (req, res) => {
 router.use('/usuario', usuarioOps);
 
 router.use('/negocios', negociosOps);
+
+router.use('/propietarios', propitearioOps);
 
 module.exports = router;
