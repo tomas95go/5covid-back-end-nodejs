@@ -10,12 +10,13 @@ const obtenerCredencialesMapsApi = () => {
   return credecialesMapsApi;
 };
 
-const geoLocalizar = (direccionNegocio) => {
+const buscarNegocio = (parametroBusqueda) => {
   const { instancia, key } = obtenerCredencialesMapsApi();
   return instancia.findPlaceFromText({
     params: {
-      input: direccionNegocio,
+      input: parametroBusqueda,
       inputtype: 'textquery',
+      fields: ['place_id', 'name', 'formatted_address'],
       key: key,
     },
     timeout: 1000,
@@ -26,25 +27,30 @@ const agregarNegocio = (
   req,
   res,
   idPropietario,
-  calleNegocio,
-  numeroCalleNegocio,
+  nombreNegocio,
   localidadNegocio,
   provinciaNegocio
 ) => {
-  const probando = `La direccion del negocio es: ${calleNegocio} ${numeroCalleNegocio}, de la localidad ${localidadNegocio} de la provincia de ${provinciaNegocio} pertenece a ${idPropietario}`;
-  const direccionNegocio = `${calleNegocio}`;
-  const respuestaAPI = geoLocalizar(direccionNegocio);
-  respuestaAPI
-    .then((data) => {
-      console.log(data.data);
+  const parametroBusqueda = `${nombreNegocio}, ${localidadNegocio}, ${provinciaNegocio}`;
+  const realizarBusqueda = buscarNegocio(parametroBusqueda);
+
+  realizarBusqueda
+    .then((respuestaAPI) => {
+      const { candidates } = respuestaAPI.data;
+
+      const negociosEncontrados = candidates.map((value) => {
+        const datosNegocio = {
+          idConfirmado: value.place_id,
+          nombreConfirmado: value.name,
+          direccionConfirmada: value.formatted_address,
+        };
+
+        return datosNegocio;
+      });
+
+      res.status(200).send(negociosEncontrados);
     })
     .catch((error) => console.log(error));
-  //res.status(200).send(probando);
-
-  //Nombre del negocio
-  //Localidad
-  //Provincia
-  //Pais
 };
 
 module.exports = {

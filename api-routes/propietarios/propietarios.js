@@ -22,8 +22,7 @@ router.get('/administrar', (req, res) => {
 router.post('/administrar/agregarnegocio', (req, res) => {
   const {
     idPropietario,
-    calleNegocio,
-    numeroCalleNegocio,
+    nombreNegocio,
     localidadNegocio,
     provinciaNegocio,
   } = req.body;
@@ -31,8 +30,7 @@ router.post('/administrar/agregarnegocio', (req, res) => {
     req,
     res,
     idPropietario,
-    calleNegocio,
-    numeroCalleNegocio,
+    nombreNegocio,
     localidadNegocio,
     provinciaNegocio
   );
